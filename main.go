@@ -6,22 +6,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type fruits struct {
-	ID   string `json:"id"`
-	Name string `json:"title"`
+// APIレスポンスの設計図
+type beat struct {
+	ID    string `json:"id"`
+	Title string `json:"title"`
 }
 
-var albums = []fruits{
-	{ID: "1", Name: "Apple"},
-	{ID: "2", Name: "Banana"},
+// テストデータのスライス
+var beats = []beat{
+	{ID: "1", Title: "A"},
+	{ID: "2", Title: "B"},
 }
 
-func getFruitsName(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
+// APIハンドラーを設定する
+// beatsをJSONで返す処理
+func getBeats(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, beats)
 }
 
+// ルーターの登録
 func main() {
 	router := gin.Default()
-	router.GET("/fruits", getFruitsName)
+	router.GET("/beats", getBeats)
 	router.Run("localhost:8080")
 }
